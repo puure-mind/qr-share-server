@@ -40,7 +40,10 @@ export class SignalingGateway
   @SubscribeMessage('msg to socket')
   transferMessage(@ConnectedSocket() client, @MessageBody() payload): void {
     console.log('transfer');
-    client.to(payload.receiver).emit('msg to socket', payload.data, client.id);
+    console.log(payload);
+    client
+      .to(payload.receiver)
+      .emit(payload.eventName, payload.data, client.id);
   }
 
   handleConnection(): void {
